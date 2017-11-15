@@ -19,11 +19,16 @@
 var counter = 0;
 var wins = 0;
 var losses =0;
-var randomNumber = [];
+var randomNumber = 0;
+var crystal1Value = 0;
+var crystal2Value = 0;
+var crystal3Value = 0;
+var crystal4Value = 0;
 
 startGame();
-
-function startGame () {
+//ISSUE crystal value is retaining from previous rounds, counter is starting at some value when playing more than 2 rounds 
+//(so if it was 2 in round 1, and 10 in round 2, it will multiply 2 and 10 for a new value of 20)
+function startGame() {
 	//set counter back to zero
 	counter = 0;
 	console.log("counter at start of game: " + counter)
@@ -34,31 +39,32 @@ function startGame () {
 
 
 	//generate a random number between 19 and 120
-	var randomNumber = Math.floor(Math.random() * 102) + 19;
+	randomNumber = Math.floor(Math.random() * 102) + 19;
 	console.log("Target Score: " + randomNumber);
 	$("#random-number").text(randomNumber);
 	//assigns value to each crystal
-	var crystal1Value = Math.floor(Math.random() *  12) + 1;
+	crystal1Value = Math.floor(Math.random() *  12) + 1;
 	console.log("First Crystal Value: " + crystal1Value);
 
-	var crystal2Value = Math.floor(Math.random() *  12) + 1;
+	crystal2Value = Math.floor(Math.random() *  12) + 1;
 	console.log("Second Crystal Value: " + crystal2Value);
 
-	var crystal3Value = Math.floor(Math.random() *  12) + 1;
+	crystal3Value = Math.floor(Math.random() *  12) + 1;
 	console.log("Third Crystal Value: " + crystal3Value);
 
-	var crystal4Value = Math.floor(Math.random() *  12) + 1;
+	crystal4Value = Math.floor(Math.random() *  12) + 1;
 	console.log("Fourth Crystal Value: " + crystal4Value);
 	
-
+};
 
 //start adding up values every time a crystal is clicked
+	
 	$("#crystal-1").on("click", function(){
 		counter = counter + crystal1Value;
 		console.log(counter);
 		$("#counter").text(counter);
 		//check after every increment if player won or lost
-		winsDetermined ()
+		winsDetermined()
 	});
 
 	$("#crystal-2").on("click", function(){
@@ -66,7 +72,7 @@ function startGame () {
 		console.log(counter);
 		$("#counter").text(counter);
 		//check after every increment if player won or lost
-		winsDetermined ()
+		winsDetermined()
 	});
 
 	$("#crystal-3").on("click", function(){
@@ -74,7 +80,7 @@ function startGame () {
 		console.log(counter);
 		$("#counter").text(counter);
 		//check after every increment if player won or lost
-		winsDetermined ()
+		winsDetermined()
 	});
 
 	$("#crystal-4").on("click", function(){
@@ -82,28 +88,25 @@ function startGame () {
 		console.log(counter);
 		$("#counter").text(counter);
 		//check after every increment if player won or lost
-		winsDetermined ()
+		winsDetermined()
 	});
 
-//not working...
+//write a function to determine win vs loss, and be sure to check if 
+//user has won or lost after every click they make
+ function winsDetermined() {
+ 	 if(counter > randomNumber) {
+ 	 	alert("You lose!");
+ 	 	losses++;
+ 	 	document.getElementById("losses-count").innerHTML = losses;		
+ 	 	console.log ("You lose " + losses + " games lost");
+ 	 	startGame();
+ 	 }
 
-// function winsDetermined () {
- 	// if(counter > randomNumber) {
- 	// 	losses++;
- 	// 	document.getElementById("losses-count").innerHTML = losses;		
- 	// 	alert("You lose!");
- 	// 	console.log ("You lose");
- 	// 	console.log(losses);
- 	// 	startGame();
- 	// }
-
-// 	else if(counter === randomNumber) {
-// 		wins++;
-// 		document.getElementById("wins-count").innerHTML = wins;
-// 		alert("ChaChing-YOU WIN!");
-// 		console.log ("You win");
-// 		console.log(wins);
-// 		startGame();
-// 	}
+ 	else if(counter === randomNumber) {
+ 		alert("ChaChing-YOU WIN!");
+ 		wins++;
+ 		document.getElementById("wins-count").innerHTML = wins;
+ 		console.log ("You win " + wins + " games won");
+ 		startGame();
+ 	}
 };
-// };
